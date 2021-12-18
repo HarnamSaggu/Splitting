@@ -1,15 +1,6 @@
 data class SplitResult(val denomination: Int, val amount: Int, val rest: MutableList<SplitResult>) {
 	companion object {
 		private val DENOMINATIONS = intArrayOf(
-			50_00,
-			20_00,
-			10_00,
-			5_00,
-			2_00,
-			1_00,
-			50,
-			20,
-			10,
 			5,
 			2,
 			1
@@ -119,6 +110,6 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 }
 
 fun main() {
-	val splitResults = SplitResult.splitAmount(15)
+	val splitResults = SplitResult.splitAmount(19)
 	println(SplitResult.splitResultsToString(splitResults))
 }
