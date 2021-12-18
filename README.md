@@ -20,5 +20,5 @@ Please enjoy
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 So...<br>
-Increasing the heap size from 999 MiB to 2000 MiB doesn't work 20p either, 2000 MiB + some optimizations doesn't work either<br>
+Increasing the heap size from 999 MiB to 2000 MiB doesn't work for 20p either, 2000 MiB + some optimizations doesn't work either<br>
 At least the algorithim is good
