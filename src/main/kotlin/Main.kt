@@ -1,5 +1,3 @@
-import java.util.*
-
 data class SplitResult(val denomination: Int, val amount: Int, val rest: MutableList<SplitResult>) {
 	override fun toString(): String {
 		return "result:\n\tdenom: ${denomination}p\n\tamount: x$amount\n\trest: $rest\n"
@@ -45,7 +43,7 @@ fun splitResultToString(splitResults: MutableList<SplitResult>): String {
 	for (splitResult in splitResults) {
 		getStrings(splitResult).forEach {
 			for (string in stringList) {
-				if (isAnagram(it, string)) return@forEach
+//				if (isAnagram(it, string)) return@forEach
 			}
 			stringList.add(it)
 		}
@@ -55,10 +53,6 @@ fun splitResultToString(splitResults: MutableList<SplitResult>): String {
 		output += "${transformShortHand(string)}\n"
 	}
 	return output
-}
-
-fun isAnagram(a: String, b: String): Boolean {
-	return Arrays.equals(a.chars().sorted().toArray(), b.chars().sorted().toArray())
 }
 
 fun splitAmount(total: Int): MutableList<SplitResult> {
@@ -86,10 +80,6 @@ fun getStrings(splitResult: SplitResult): MutableList<String> {
 		}
 	}
 	return output
-}
-
-fun numberOfPaths(splitResult: MutableList<SplitResult>): Int {
-	return numberOfPaths(SplitResult(0, 0, splitResult))
 }
 
 fun numberOfPaths(splitResult: SplitResult): Int {
