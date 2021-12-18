@@ -14,3 +14,10 @@ The reason the denominations are 5, 2, 1 is because in britain denominations fol
 And as 19 is the upper limit on a more reasonable heap size so just use it an estimate so just ignore the 'p' in the output<br>
 <br>
 Please enjoy
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+So...<br>
+Increasing the heap size from 999 MiB to 2000 MiB doesn't work 20p either, 2000 MiB + some optimizations doesn't work eight
