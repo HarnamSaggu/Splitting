@@ -4,7 +4,7 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 	}
 }
 
-val denominations = intArrayOf(
+val DENOMINATIONS = intArrayOf(
 	50_00,
 	20_00,
 	10_00,
@@ -21,43 +21,70 @@ val denominations = intArrayOf(
 
 fun main() {
 	val splitResult = splitAmount(4)
-
-	println(splitResult)
-	println()
-
 	println(splitResultToString(splitResult))
 }
 
-fun transformShortHand(inputString: String): String {
-	val input = inputString.substring(0, inputString.length - 1).replace("\\{".toRegex(), "").split("}")
+fun transformShortHand(list: MutableList<Pair<Int, Int>>): String {
 	var output = ""
-	var i = 0
-	while (i < input.size) {
-		output += "${input[i]}p x ${input[++i]}${if (++i + 1 < input.size) " + " else ""}"
+	for (pair in list) {
+		output += "${pair.first}p x ${pair.second} and "
 	}
-	return output
+	if (output.isEmpty()) {
+		println(list)
+	}
+	return output.substring(0, output.length - 5)
 }
 
 fun splitResultToString(splitResults: MutableList<SplitResult>): String {
-	val stringList = mutableListOf<String>()
+	val stringList = mutableListOf<MutableList<Pair<Int, Int>>>()
 	for (splitResult in splitResults) {
 		getStrings(splitResult).forEach {
+			val reducedIt = reduceList(it)
+			var isPresent = false
 			for (string in stringList) {
-//				if (isAnagram(it, string)) return@forEach
+				if (isAnagram(reducedIt, string)) {
+					isPresent = true
+				}
 			}
-			stringList.add(it)
+			if (!isPresent) stringList.add(reducedIt)
 		}
 	}
 	var output = ""
 	for (string in stringList) {
-		output += "${transformShortHand(string)}\n"
+		if (string.isNotEmpty()) output += "${transformShortHand(string)}\n"
 	}
 	return output
 }
 
+fun reduceList(list: MutableList<Pair<Int, Int>>): MutableList<Pair<Int, Int>> {
+	val reducedIt = mutableListOf<Pair<Int, Int>>()
+	for (pair in list) {
+		var isPresent = false
+		reducedIt.forEach { x ->
+			if (x.first == pair.first) {
+				isPresent = true
+				reducedIt[reducedIt.indexOf(x)] = Pair(x.first, x.second + pair.second)
+			}
+		}
+		if (!isPresent) {
+			reducedIt.add(pair)
+		}
+	}
+	return reducedIt
+}
+
+fun isAnagram(a: MutableList<Pair<Int, Int>>, b: MutableList<Pair<Int, Int>>): Boolean {
+	if (a.size != b.size) return false
+	val bCopy = b.toMutableList()
+	for (pair in a) {
+		bCopy.remove(pair)
+	}
+	return bCopy.size == 0
+}
+
 fun splitAmount(total: Int): MutableList<SplitResult> {
 	val splits = mutableListOf<SplitResult>()
-	for (denomination in denominations) {
+	for (denomination in DENOMINATIONS) {
 		for (amount in 1..total / denomination) {
 			splits.add(SplitResult(denomination, amount, splitAmount(total - denomination * amount)))
 		}
@@ -65,10 +92,11 @@ fun splitAmount(total: Int): MutableList<SplitResult> {
 	return splits
 }
 
-fun getStrings(splitResult: SplitResult): MutableList<String> {
+fun getStrings(splitResult: SplitResult): MutableList<MutableList<Pair<Int, Int>>> {
 //	val output: MutableList<String> = MutableList(numberOfPaths(splitResult)) { "${splitResult.denomination}p x ${splitResult.amount}" }
-	val output: MutableList<String> = MutableList(numberOfPaths(splitResult)) { "{${splitResult.denomination}}{${splitResult.amount}}" }
-	val otherResults: MutableList<MutableList<String>> = mutableListOf()
+	val output: MutableList<MutableList<Pair<Int, Int>>> =
+		MutableList(numberOfPaths(splitResult)) { mutableListOf(Pair(splitResult.denomination, splitResult.amount)) }
+	val otherResults: MutableList<MutableList<MutableList<Pair<Int, Int>>>> = mutableListOf()
 	for (result in splitResult.rest) {
 		otherResults.add(getStrings(result))
 	}
