@@ -8,7 +8,7 @@ With the use of recursion partitions become simple and can do a whopping 19p, ye
 Recursion is expensive (memory wise)
 The point was the algorithms
 
-The reason the denominations are 5, 2, 1 is because in britain denominations follow a 5, 2, 1 patter:
+The reason the denominations are 5, 2, 1 is because in britain denominations follow a 5, 2, 1 patter:<br>
 £50, £20, £10, £5, £2, £1, 50p, 20p, 10p, 5p, 2p, 1p
 |----notes------|  |------------coins--------------|
 And as 19 is the upper limit on a more reasonable heap size just use it an estimate so just ignore the 'p' in the output
