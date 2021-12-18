@@ -6,6 +6,7 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 			1
 		)
 
+		// INTENSIVE
 		fun splitAmount(total: Int): MutableList<SplitResult> {
 			val splits = mutableListOf<SplitResult>()
 			for (denomination in DENOMINATIONS) {
@@ -27,6 +28,7 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 			return output.substring(0, output.length - 5)
 		}
 
+		// SUPER-INTENSIVE
 		fun splitResultsToString(splitResults: MutableList<SplitResult>): String {
 			val stringList = mutableListOf<MutableList<Pair<Int, Int>>>()
 			for (splitResult in splitResults) {
@@ -34,7 +36,7 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 					val reducedIt = reduceList(it)
 					var isPresent = false
 					for (string in stringList) {
-						if (isAnagram(reducedIt, string)) {
+						if (reducedIt.containsAll(string) && string.containsAll(reducedIt)) {
 							isPresent = true
 						}
 					}
@@ -65,15 +67,7 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 			return reducedIt
 		}
 
-		private fun isAnagram(a: MutableList<Pair<Int, Int>>, b: MutableList<Pair<Int, Int>>): Boolean {
-			if (a.size != b.size) return false
-			val bCopy = b.toMutableList()
-			for (pair in a) {
-				bCopy.remove(pair)
-			}
-			return bCopy.size == 0
-		}
-
+		// INTENSIVE
 		private fun getNumberPairs(splitResult: SplitResult): MutableList<MutableList<Pair<Int, Int>>> {
 			val output: MutableList<MutableList<Pair<Int, Int>>> =
 				MutableList(numberOfPaths(splitResult)) { mutableListOf(Pair(splitResult.denomination, splitResult.amount)) }
@@ -101,7 +95,6 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 				1
 			}
 		}
-
 	}
 
 	override fun toString(): String {
@@ -110,6 +103,6 @@ data class SplitResult(val denomination: Int, val amount: Int, val rest: Mutable
 }
 
 fun main() {
-	val splitResults = SplitResult.splitAmount(19)
+	val splitResults = SplitResult.splitAmount(10)
 	println(SplitResult.splitResultsToString(splitResults))
 }
