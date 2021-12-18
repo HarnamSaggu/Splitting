@@ -1,5 +1,5 @@
 # Splitting<br>
-How to partition money (into GBP)<br>
+How to partition money (into GBP kinda)<br>
 <br>
 Calculates and neatly presents the partitions of an amount of money in GB pennies (as to avoid floating point errors).<br>
 This is very similar to partitions in math except here you have a select few blocks as it were.<br>
