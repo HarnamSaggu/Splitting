@@ -10,7 +10,7 @@ The point was the algorithms<br>
 <br>
 The reason the denominations are 5, 2, 1 is because in britain denominations follow a 5, 2, 1 patter:<br>
 £50, £20, £10, £5, £2, £1, 50p, 20p, 10p, 5p, 2p, 1p<br>
-|----notes------|  |--------------coins----------------|<br>
+|----notes------|  |--------------coins---------------|<br>
 And as 19 is the upper limit on a more reasonable heap size just use it an estimate so just ignore the 'p' in the output<br>
 <br>
 Please enjoy
